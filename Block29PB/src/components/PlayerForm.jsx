@@ -40,31 +40,31 @@ const PlayerForm = ({ onCreatePlayer }) => {
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="name">Name:</label>
-          <input type="text" id="name" value={formData.name} onChange={handleChange} required />
+          <input type="text" name="name" value={formData.name} onChange={handleChange} required />
         </div>
 
         <div className="form-group">
-          <label for="breed">Breed:</label>
-          <input type="text" id="breed" value={formData.breed} onChange={handleChange} required />
+          <label htmlFor="breed">Breed:</label>
+          <input type="text" name="breed" value={formData.breed} onChange={handleChange} required />
         </div>
 
         <div className="form-group">
           <label htmlFor="status">Status:</label>
-          <input type="text" id="status" value={formData.status} onChange={handleChange} required />
+          <input type="text" name="status" value={formData.status} onChange={handleChange} required />
         </div>
 
         <div className="form-group">
           <label htmlFor="teamId">TeamId:</label>
-          
-          <select id="teamId" value={formData.teamId} onChange={handleChange} required>
+          {/* Example: Using a select dropdown for teamId */}
+          <select name="teamId" value={formData.teamId} onChange={handleChange} required>
             <option value="">Select Team</option>
             <option value="team1">Team 1</option>
             <option value="team2">Team 2</option>
-            {/* Add more options as needed */}
+            <option value="team3">Team 3</option>
           </select>
         </div>
 
-        {/* Add more form fields as needed */}
+       
 
         <button type="submit">Create Player</button>
       </form>
