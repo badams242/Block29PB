@@ -1,25 +1,25 @@
-const PlayersList = ({ players, onSeeDetails, onDelete }) => {
-    return (
-      <div>
-        <h2>Players List</h2>
-        {players.length > 0 ? (
-          <ul>
-            {players.map((player) => (
-              <li key={player.id}>
-                <p>{player.name}</p>
-                <p>{player.breed}</p>
-                <p>{player.status}</p>
-                <p>Image URL: {player.imageUrl}</p>
-                <button onClick={() => onSeeDetails(player.id)}>See Details</button>
-                <button onClick={() => onDelete(player.id)}>Delete</button>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>No players available</p>
-        )}
-      </div>
-    );
-  };
-  
-  export default PlayersList;
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+
+const PlayersList = () => {
+  const [players, setPlayers] = useState([]);
+
+  useEffect(() => {
+    // Your existing code to fetch players
+    // e.g., fetchAllPlayers() and setPlayers(data);
+  }, []);
+
+  return (
+    <div className="player-list">
+      {players.map((player) => (
+        <div key={player.id} className="player-card">
+          <img src={player.imageUrl} alt={player.name} />
+          <h4>{player.name}</h4>
+          <Link to={`/players/${player.id}`}>See Details</Link>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default PlayersList;

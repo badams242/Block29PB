@@ -1,11 +1,22 @@
 import React from 'react';
-import { createRoot } from 'react-dom/client';
-import App from './App.jsx';
-import './index.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import AllPlayers from './components/PlayersList';
+import SinglePlayer from './components/SinglePlayer';
+import NewPlayerForm from './components/NewPlayerForm';
+import NavBar from './components/NavBar';
 
-// Use createRoot instead of ReactDOM.render
-createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+const App = () => {
+  return (
+    <Router>
+      <NavBar />
+      <Routes>
+        <Route path="/" element={<AllPlayers />} />
+        <Route path="/players/:id" element={<SinglePlayer />} />
+        <Route path="/new-player" element={<NewPlayerForm />} />
+        {/* Add more routes as needed */}
+      </Routes>
+    </Router>
+  );
+};
+
+export default App;

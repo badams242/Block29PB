@@ -1,114 +1,42 @@
-import React, { useState, useEffect } from 'react';
-import PlayerDetails from './components/PlayerDetails.jsx';
-import PlayerForm from './components/PlayerForm.jsx';
-import PlayersList from './components/PlayersList.jsx';
-import SearchBar from './components/SearchBar.jsx';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import NavBar from './components/NavBar';
+import PlayersList from './components/PlayersList';
+import SinglePlayer from './components/SinglePlayer';
+import NewPlayerForm from './components/NewPlayerForm';
 
-
-const API_URL = `https://fsa-puppy-bowl.herokuapp.com/api/${'2309-FTB-ET-WEB-PT'}/players`;
-
-  // Fetch all players on component mount
-  useEffect(() => {
-    fetchPlayers();
-  }, []);
-
-  const fetchPlayers = async () => {
-    try {
-      const response = await fetch(`${API_URL}/players`);
-      if (!response.ok) {
-        throw new Error(`Failed to fetch players. Status: ${response.status}`);
-      }
-      const data = await response.json();
-      setPlayers(data);
-      setLoading(false); // Set loading to false after fetching
-    } catch (error) {
-      console.error('Error fetching players:', error.message);
-    }
-  };
-
-  const handleSeeDetails = async (playerId) => {
-    try {
-      const response = await fetch(`${API_URL}/players/${playerId}`);
-      if (!response.ok) {
-        throw new Error('Failed to fetch player details');
-      }
-      const data = await response.json();
-      setSelectedPlayer(data);
-    } catch (error) {
-      console.error('Error fetching player details:', error.message);
-    }
-  };
-
-  const handleSearch = async (searchText) => {
-    try {
-      const response = await fetch(`${API_URL}/players/search?name=${searchText}`);
-      if (!response.ok) {
-        throw new Error('Failed to fetch filtered players');
-      }
-      const data = await response.json();
-      setPlayers(data); // Assuming setPlayers is a state updater function
-    } catch (error) {
-      console.error('Error fetching filtered players:', error.message);
-    }
-  };
-
-  const handleDeletePlayer = async (playerId) => {
-    try {
-      const confirmDeletion = window.confirm('Are you sure you want to delete this player?');
-
-      if (!confirmDeletion) {
-        return;
-      }
-
-      const response = await fetch(`${API_URL}/players/delete/${playerId}`, {
-        method: 'DELETE',
-      });
-
-      if (!response.ok) {
-        const errorMessage = await response.text(); // Get the error message from the server
-        throw new Error(`Failed to delete player. Server response: ${errorMessage}`);
-      }
-
-      alert('Player deleted successfully');
-      fetchPlayers();
-    } catch (error) {
-      console.error(error.message);
-      alert('Failed to delete player. Please try again.');
-    }
-  };
-
+const App = () => {
   const handleCreatePlayer = async (newPlayerData) => {
     try {
-      const response = await fetch('/api/players/create', {
+      const response = await fetch(`https://fsa-puppy-bowl.herokuapp.com/api/${'2309-ftb-et-web-pt'}/players/create`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(newPlayerData),
       });
+
       if (!response.ok) {
         throw new Error('Failed to create player');
       }
-      // Fetch the updated list of players after creating a new player
-      fetchPlayers();
+
+      // Optionally handle the success, e.g., navigate to a different page
+      console.log('Player created successfully');
     } catch (error) {
       console.error('Error creating player:', error.message);
+      // Optionally show an error message to the user
     }
   };
 
   return (
-    <div>
-      <SearchBar searchText={searchText} setSearchText={setSearchText} onSearch={handleSearch} />
-      {loading ? (
-        <p>Loading players...</p>
-      ) : (
-        <>
-          <PlayersList players={players} onSeeDetails={handleSeeDetails} onDelete={handleDeletePlayer} />
-          {selectedPlayer && <PlayerDetails player={selectedPlayer} />}
-          <PlayerForm onCreatePlayer={handleCreatePlayer} />
-        </>
-      )}
-    </div>
+    <Router>
+      <NavBar />
+      <Routes>
+        <Route path="/" element={<PlayersList />} />
+        <Route path="/players/:id" element={<SinglePlayer />} />
+        <Route path="/new-player" element={<NewPlayerForm onCreatePlayer={handleCreatePlayer} />} />
+      </Routes>
+    </Router>
   );
 };
 

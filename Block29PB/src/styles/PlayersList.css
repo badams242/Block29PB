@@ -1,0 +1,15 @@
+.player-list {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .player-card {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+  }
+  
+  .player-image {
+    max-width: 100%;
+    height: auto;
+  }
