@@ -1,13 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-const PlayersList = () => {
+const PlayersList = ({ fetchPlayers }) => {
   const [players, setPlayers] = useState([]);
 
   useEffect(() => {
-    // Your existing code to fetch players
-    // e.g., fetchAllPlayers() and setPlayers(data);
-  }, []);
+    const fetchAllPlayers = async () => {
+      try {
+        const response = await fetchPlayers();
+        if (!response.ok) {
+          throw new Error('Failed to fetch players');
+        }
+        const data = await response.json();
+        setPlayers(data.players);
+      } catch (error) {
+        console.error('Error fetching players:', error.message);
+      }
+    };
+
+    fetchAllPlayers();
+  }, [fetchPlayers]);
 
   return (
     <div className="player-list">

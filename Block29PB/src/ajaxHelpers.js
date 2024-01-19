@@ -1,44 +1,74 @@
-const m = async g => {
+const baseUrl = 'https://fsa-puppy-bowl.herokuapp.com/api/2309-ftb-et-web-pt/players';
+
+const fetchAllPlayers = async () => {
   try {
-      const w = await fetch(`${s}/players/search?name=${g}`);
-      if (!w.ok)
-          throw new Error("Failed to fetch filtered players");
-      const D = await w.json();
-      n(D);
-  } catch (w) {
-      console.error("Error fetching filtered players:", w.message);
+    const response = await fetch(baseUrl);
+    if (!response.ok) {
+      throw new Error(' Failed to fetch players');
+    }
+    const data = await response.json();
+    return data.players;
+  } catch (error) {
+    console.error('Error fetching players:', error.message);
+    throw error;
   }
-}
-const p = async g => {
+};
+
+const searchPlayers = async (name) => {
   try {
-      if (!window.confirm("Are you sure you want to delete this player?"))
-          return;
-      const D = await fetch(`${s}/players/delete/${g}`, {
-          method: "DELETE"
-      });
-      if (!D.ok) {
-          const f = await D.text();
-          throw new Error(`Failed to delete player. Server response: ${f}`);
-      }
-      alert("Player deleted successfully");
-      c();
-  } catch (w) {
-      console.error(w.message);
-      alert("Failed to delete player. Please try again.");
+    const response = await fetch(`${baseUrl}/search?name=${name}`);
+    if (!response.ok) {
+      throw new Error('Failed to fetch filtered players');
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching filtered players:', error.message);
+    throw error;
   }
-}
-const S = async g => {
+};
+
+const deletePlayer = async (playerId) => {
   try {
-      if (!(await fetch("/API/players/create", {
-          method: "POST",
-          headers: {
-              "Content-Type": "application/json"
-          },
-          body: JSON.stringify(g)
-      })).ok)
-          throw new Error("Failed to create player");
-      c();
-  } catch (w) {
-      console.error("Error creating player:", w.message);
+    if (!window.confirm('Are you sure you want to delete this player?')) {
+      return;
+    }
+
+    const response = await fetch(`${baseUrl}/delete/${playerId}`, {
+      method: 'DELETE',
+    });
+
+    if (!response.ok) {
+      const errorMessage = await response.text();
+      throw new Error(`Failed to delete player. Server response: ${errorMessage}`);
+    }
+
+    return 'Player deleted successfully';
+  } catch (error) {
+    console.error('Error deleting player:', error.message);
+    throw error;
   }
-}
+};
+
+const createPlayer = async (playerData) => {
+  try {
+    const response = await fetch(baseUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(playerData),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to create player');
+    }
+
+    return 'Player created successfully';
+  } catch (error) {
+    console.error('Error creating player:', error.message);
+    throw error;
+  }
+};
+
+export { fetchAllPlayers, searchPlayers, deletePlayer, createPlayer };

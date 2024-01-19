@@ -4,13 +4,13 @@ const bodyParser = require('body-parser');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Parse JSON request bodies
+// Middleware to parse JSON request bodies
 app.use(bodyParser.json());
 
 // Your existing routes
 
 // Route to delete a player by ID
-app.delete('/API/:cohortId/players/:playerId', (req, res) => {
+app.delete('/api/:cohortId/players/:playerId', (req, res) => {
   const { cohortId, playerId } = req.params;
 
   // Perform the deletion logic here (e.g., delete player from the database)
