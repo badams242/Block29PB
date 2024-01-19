@@ -5,39 +5,45 @@ import PlayersList from './components/PlayersList.jsx';
 import SearchBar from './components/SearchBar.jsx';
 
 
-const App = async () => {
+const App = () => {
   const [players, setPlayers] = useState([]);
   const [selectedPlayer, setSelectedPlayer] = useState(null);
   const [searchText, setSearchText] = useState('');
+  const [loading, setLoading] = useState(true);
 
  
   const API_URL = `https://fsa-puppy-bowl.herokuapp.com/api/${'2309-FTB-ET-WEB-PT'}`;
 
   // Fetch all players on component mount
   useEffect(() => {
-    const fetchPlayers = async () => {
-      try {
-        const response = await fetch(`${API_URL}/players`);
-        if (!response.ok) {
-          throw new Error(`Failed to fetch players. Status: ${response.status}`);
-        }
-        const data = await response.json();
-        setPlayers(data);
-      } catch (error) {
-        console.error('Error fetching players:', error.message);
+    fetchPlayers();
+  }, []);
+
+  const fetchPlayers = async () => {
+    try {
+      const response = await fetch(`${API_URL}/players`);
+      if (!response.ok) {
+        throw new Error(`Failed to fetch players. Status: ${response.status}`);
       }
-    };
+      const data = await response.json();
+      setPlayers(data);
+      setLoading(false); // Set loading to false after fetching
+    } catch (error) {
+      console.error('Error fetching players:', error.message);
+    }
+  };
+  useEffect(() => {
     fetchPlayers();
   }, [API_URL]);
 
   const handleSeeDetails = async (playerId) => {
     try {
-      const response = await fetch(`${API_URL}/players/${playerId}`); // Adjust the API endpoint
+      const response = await fetch(`${API_URL}/players/${playerId}`);
       if (!response.ok) {
         throw new Error('Failed to fetch player details');
       }
       const data = await response.json();
-      setSelectedPlayer(data); // Assuming setSelectedPlayer is a state updater function
+      setSelectedPlayer(data);
     } catch (error) {
       console.error('Error fetching player details:', error.message);
     }
@@ -113,6 +119,6 @@ const App = async () => {
       )}
     </div>
   );
-}
+};
 
 export default App;
