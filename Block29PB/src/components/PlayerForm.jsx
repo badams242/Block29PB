@@ -32,7 +32,7 @@ return (
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="name">Name:</label>
-          <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
+          <input type="text" id="name" name="name" autoComplete='name' value={formData.name} onChange={handleChange} required />
         </div>
 
         <div className="form-group">

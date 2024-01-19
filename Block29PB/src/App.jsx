@@ -5,14 +5,7 @@ import PlayersList from './components/PlayersList.jsx';
 import SearchBar from './components/SearchBar.jsx';
 
 
-const App = () => {
-  const [players, setPlayers] = useState([]);
-  const [selectedPlayer, setSelectedPlayer] = useState(null);
-  const [searchText, setSearchText] = useState('');
-  const [loading, setLoading] = useState(true);
-
- 
-  const API_URL = `https://fsa-puppy-bowl.herokuapp.com/api/${'2309-FTB-ET-WEB-PT'}/players`;
+const API_URL = `https://fsa-puppy-bowl.herokuapp.com/api/${'2309-FTB-ET-WEB-PT'}/players`;
 
   // Fetch all players on component mount
   useEffect(() => {
@@ -32,9 +25,6 @@ const App = () => {
       console.error('Error fetching players:', error.message);
     }
   };
-  useEffect(() => {
-    fetchPlayers();
-  }, [API_URL]);
 
   const handleSeeDetails = async (playerId) => {
     try {
@@ -51,7 +41,7 @@ const App = () => {
 
   const handleSearch = async (searchText) => {
     try {
-      const response = await fetch(`${API_URL}/players/search?name=${searchText}`); // Adjust the API endpoint
+      const response = await fetch(`${API_URL}/players/search?name=${searchText}`);
       if (!response.ok) {
         throw new Error('Failed to fetch filtered players');
       }
@@ -65,20 +55,20 @@ const App = () => {
   const handleDeletePlayer = async (playerId) => {
     try {
       const confirmDeletion = window.confirm('Are you sure you want to delete this player?');
-      
+
       if (!confirmDeletion) {
         return;
       }
-  
+
       const response = await fetch(`${API_URL}/players/delete/${playerId}`, {
         method: 'DELETE',
       });
-  
+
       if (!response.ok) {
         const errorMessage = await response.text(); // Get the error message from the server
         throw new Error(`Failed to delete player. Server response: ${errorMessage}`);
       }
-  
+
       alert('Player deleted successfully');
       fetchPlayers();
     } catch (error) {
@@ -86,6 +76,7 @@ const App = () => {
       alert('Failed to delete player. Please try again.');
     }
   };
+
   const handleCreatePlayer = async (newPlayerData) => {
     try {
       const response = await fetch('/api/players/create', {
@@ -108,7 +99,7 @@ const App = () => {
   return (
     <div>
       <SearchBar searchText={searchText} setSearchText={setSearchText} onSearch={handleSearch} />
-      {players.length === 0 ? (
+      {loading ? (
         <p>Loading players...</p>
       ) : (
         <>
