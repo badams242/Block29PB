@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import './PlayersList.css';
+import { APIURL } from '../config';
 
 const SinglePlayer = ({ match, fetchSinglePlayer, deletePlayer }) => {
   const [player, setPlayer] = useState(null);
@@ -7,20 +10,16 @@ const SinglePlayer = ({ match, fetchSinglePlayer, deletePlayer }) => {
   useEffect(() => {
     const playerId = match.params.id;
 
-    const fetchPlayerDetails = async () => {
+    const fetchSinglePlayer = async (playerId) => {
       try {
-        const response = await fetchSinglePlayer(playerId);
-        if (!response.ok) {
-          throw new Error('Failed to fetch player details');
-        }
-        const data = await response.json();
-        setPlayer(data);
-      } catch (error) {
-        console.error('Error fetching player details:', error.message);
-      } finally {
-        setLoading(false);
+          const response = await fetch(`${APIURL}/players/${playerId}`);
+          const player = await response.json();
+          return player;
+      } catch (err) {
+          console.error(`Oh no, trouble fetching player #${playerId}!`, err);
       }
-    };
+  };
+  
 
     fetchPlayerDetails();
   }, [match.params.id, fetchSinglePlayer]);

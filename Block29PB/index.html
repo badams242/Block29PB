@@ -1,13 +1,151 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- import JavaScript -->
+  <script defer src="script.js"></script>
+
+  <!-- import CSS -->
+  <link rel="stylesheet" href="styles.css">
+
+  <title>PuppyBowl</title>
+</head>
+
+<body>
+  <h2>Add New Player</h2>
+  <div id="new-player-form"></div>
+
+  <h2>Add New Player</h2>
+  <form id="new-player-form">
+    <label for="name">Name</label>
+    <input type="text" id="name" name="name" />
+    <label for="breed">Breed</label>
+    <input type="text" id="breed" name="breed" />
+    <label for="status">Status</label>
+    <input type="text" id="status" name="status" />
+    <label for="number">Number</label>
+    <input type="number" id="number" name="number" />
+    <label for="team">Team</label>
+    <input type="text" id="team" name="team" />
+    <button type="submit">Add new player</button>
+  </form>
+
+  <div id="all-players-container"></div>
+  <h2>All Players</h2>
+  <ul id=" player-list">
+    <li>
+      <span class="player-name">Moe</span>
+      <span class="player-breed">Golden Retriever / Boxer</span>
+      <img class="player-image"
+        src="http://r.ddmcdn.com/w_1012/s_f/o_1/cx_0/cy_0/cw_1012/ch_1518/APL/uploads/2019/12/Kenny-PBXVI.jpg"
+        alt="Moe's Image">
+      <span class="player-status">Field</span>
+      <span class="player-number">23</span>
+      <span class="player-team">Blue</span>
+      <button class="delete-player">Delete</button>
+    </li>
+    <li>
+      <span class="player-name">Snorlax</span>
+      <span class="player-breed">Australian Cattle Dog / Labrador Retriever</span>
+      <img class="player-image"
+        src="http://r.ddmcdn.com/w_912/s_f/o_1/cx_51/cy_0/cw_912/ch_1368/APL/uploads/2019/12/Anise-PBXVI.jpg"
+        alt="Snorlax's Image">
+      <span class="player-status">Field</span>
+      <span class="player-number">10</span>
+      <span class="player-team">Blue</span>
+      <button class="delete-player">Delete</button>
+    </li>
+    <li>
+      <span class="player-name">Ole Yellow</span>
+      <span class="player-breed">Shetland Sheepdog / Border Collie</span>
+      <img class="player-image"
+        src="http://r.ddmcdn.com/w_942/s_f/o_1/cx_35/cy_0/cw_942/ch_1413/APL/uploads/2019/12/Filbert-PBXVI.jpg"
+        alt="Ole Yellow's Image">
+      <span class="player-status">Field</span>
+      <span class="player-number">20</span>
+      <span class="player-team">Blue</span>
+      <button class="delete-player">Delete</button>
+    </li>
+    <li>
+      <span class="player-name">Scooby</span>
+      <span class="player-breed">German Shepherd</span>
+      <img class="player-image"
+        src="http://r.ddmcdn.com/w_960/s_f/o_1/cx_25/cy_0/cw_960/ch_1440/APL/uploads/2020/01/Daphne-PBXVI.jpg"
+        alt="Scooby's Image">
+      <span class="player-status">Field</span>
+      <span class="player-number">12</span>
+      <span class="player-team">Blue</span>
+      <button class="delete-player">Delete</button>
+    </li>
+    <li>
+      <span class="player-name">Sparkles</span>
+      <span class="player-breed">Chihuahua / Miniature Poodle</span>
+      <img class="player-image"
+        src="http://r.ddmcdn.com/w_926/s_f/o_1/cx_42/cy_0/cw_926/ch_1389/APL/uploads/2019/12/Jack-PBXVI.jpg"
+        alt="Sparkles's Image">
+      <span class="player-status">Field</span>
+      <span class="player-number">08</span>
+      <span class="player-team">Red</span>
+      <button class="delete-player">Delete</button>
+    </li>
+    <li>
+      <span class="player-name">Robin</span>
+      <span class="player-breed">American Staffordshire Terrier</span>
+      <img class="player-image"
+        src="http://r.ddmcdn.com/w_1012/s_f/o_1/cx_0/cy_0/cw_1012/ch_1518/APL/uploads/2019/12/Crumpet-PBXVI.jpg"
+        alt="Robin's Image">
+      <span class="player-status">Field</span>
+      <span class="player-number">04</span>
+      <span class="player-team">Red</span>
+      <button class="delete-player">Delete</button>
+    </li>
+    <li>
+      <span class="player-name">Spots</span>
+      <span class="player-breed">Dalmatian</span>
+      <img class="player-image"
+        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTS76BeTY1xO9tUimRMFLctVqOQ9AP1sVdqaQ&usqp=CAU"
+        alt="Spots's Image">
+      <span class="player-status">Field</span>
+      <span class="player-number">08</span>
+      <span class="player-team">Red</span>
+      <button class="delete-player">Delete</button>
+    </li>
+    <li>
+      <span class="player-name">Spike</span>
+      <span class="player-breed">Pug</span>
+      <img class="player-image"
+        src="data:image/jpeg;base64,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"
+        alt="Spike's Image">
+      <span class="player-status">Field</span>
+      <span class="player-number">15</span>
+      <span class="player-team">Red</span>
+      <button class="delete-player">Delete</button>
+    </li>
+  </ul>
+</body>
+<div id="player-deatils">
+  <h2>Player Details</h2>
+  <div id="details-container"></div>
+  <div id="edit-player-form"></div>
+  <h2>Edit Player</h2>
+  <form id="edit-player-form">
+    <label for="name">Name</label>
+    <input type="text" id="name" name="name" />
+    <label for="breed">Breed</label>
+    <input type="text" id="breed" name="breed" />
+    <label for="Stats">Stats</label>
+    <input type="text" id="stats" name="stats" />
+    <label for="number">Number</label>
+    <input type="number" id="number" name="number" />
+    <label for="team">Team</label>
+    <input type="text" id="team" name="team" />
+    <button type="submit">Edit Player</button>
+
+  <button id="edit-player-button">Edit Player</button>
+</div>
+
 </html>

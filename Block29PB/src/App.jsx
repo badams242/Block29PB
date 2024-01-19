@@ -4,6 +4,8 @@ import NavBar from './components/NavBar';
 import PlayersList from './components/PlayersList';
 import SinglePlayer from './components/SinglePlayer';
 import NewPlayerForm from './components/NewPlayerForm';
+import './App.css';
+import { fetchAllPlayers } from './utils';
 
 const App = () => {
   const API_BASE_URL = 'https://fsa-puppy-bowl.herokuapp.com/api/2309-ftb-et-web-pt';

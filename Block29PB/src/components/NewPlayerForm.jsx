@@ -1,76 +1,52 @@
 import React, { useState } from 'react';
+import './NewPlayerForm.css';
+import { APIURL } from '../config';
 
-const NewPlayerForm = ({ onCreatePlayer }) => {
-  const [newPlayerData, setNewPlayerData] = useState({
-    name: '',
-    breed: '',
-    status: 'bench', // Default status, you can change it as needed
-    imageUrl: '', // Add other fields as needed
-  });
+const renderNewPlayerForm = () => {
+  try {
+      newPlayerFormContainer.innerHTML = `
+          <form id="new-player-form">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" />
+              <label for="breed">Breed</label>
+              <input type="text" id="breed" name="breed" />
+              <label for="status">Status</label>
+              <input type="text" id="status" name="status" />
+              <label for="number">Number</label>
+              <input type="number" id="number" name="number" />
+              <label for="team">Team</label>
+              <input type="text" id="team" name="team" />
+              <button type="submit">Add new player</button>
+          </form>
+      `;/// created container for html as weel adde button 
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setNewPlayerData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
+      const newPlayerForm = document.getElementById('new-player-form');
+      newPlayerForm.addEventListener('submit', async (event) => {
+          event.preventDefault();
+          const newPlayerObj = {
+              name: event.target.name.value,
+              breed: event.target.breed.value,
+              status: event.target.status.value,
+              number: event.target.number.value,
+              team: event.target.team.value
+          };
+          const addedPlayer = await addNewPlayer(newPlayerObj);
+          const updatedPlayers = await fetchAllPlayers();
+          renderAllPlayers(updatedPlayers);
+      });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Call the onCreatePlayer function with the new player data
-    onCreatePlayer(newPlayerData);
-    // Optionally, reset the form or perform other actions after submission
-    setNewPlayerData({
-      name: '',
-      breed: '',
-      status: 'bench',
-      imageUrl: '',
-    });
-  };
+  } catch (err) {
+      console.error('Uh oh, trouble rendering the new player form!', err);
+  }
+}
 
-  return (
-    <div className="form-container">
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="name" className="form-label">
-            Name:
-          </label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={newPlayerData.name}
-            onChange={handleChange}
-            className="form-input"
-            required
-          />
-        </div>
+const init = async () => {
+  const players = await fetchAllPlayers();
+  renderAllPlayers(players);
+  /// render all players and render new player form
+  renderNewPlayerForm();
+}
 
-        <div className="form-group">
-          <label htmlFor="breed" className="form-label">
-            Breed:
-          </label>
-          <input
-            type="text"
-            id="breed"
-            name="breed"
-            value={newPlayerData.breed}
-            onChange={handleChange}
-            className="form-input"
-            required
-          />
-        </div>
-
-        {/* Add other form fields as needed */}
-        {/* e.g., status, imageUrl, etc. */}
-
-        <button type="submit" className="form-button">
-          Create Player
-        </button>
-      </form>
-    </div>
-  );
-};
+init();
 
 export default NewPlayerForm;
