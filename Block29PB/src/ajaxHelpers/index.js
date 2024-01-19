@@ -5,7 +5,7 @@ import { default as SinglePlayer } from '../components/SearchBar';
 import { default as App } from '../App';
 
 const cohortName = '2309-FTB-ET-WEB-PT';
-const APIURL = `https://fsa-puppy-bowl.herokuapp.com/api/${'2309-FTB-ET-WEB-PT'}`;
+const APIURL = `https://fsa-puppy-bowl.herokuapp.com/api/${'2309-FTB-ET-WEB-PT'}/players`;
 
 export const fetchAllPlayers = async () => {
   try {

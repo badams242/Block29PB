@@ -12,7 +12,7 @@ const App = () => {
   const [loading, setLoading] = useState(true);
 
  
-  const API_URL = `https://fsa-puppy-bowl.herokuapp.com/api/${'2309-FTB-ET-WEB-PT'}`;
+  const API_URL = `https://fsa-puppy-bowl.herokuapp.com/api/${'2309-FTB-ET-WEB-PT'}/players`;
 
   // Fetch all players on component mount
   useEffect(() => {
