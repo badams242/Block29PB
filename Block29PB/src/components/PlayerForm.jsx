@@ -6,7 +6,6 @@ const PlayerForm = ({ onCreatePlayer }) => {
     breed: '',
     status: '',
     teamId: '',
-    // Add more form fields as needed
   };
 
   const [formData, setFormData] = useState(initialFormData);
@@ -21,8 +20,16 @@ const PlayerForm = ({ onCreatePlayer }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    // Basic validation
+    if (formData.name.trim() === '' || formData.breed.trim() === '' || formData.status.trim() === '') {
+      alert('Please fill out all required fields.');
+      return;
+    }
+
     // Call the onCreatePlayer function to handle the creation of a new player
     onCreatePlayer(formData);
+    
     // Optionally, reset the form fields after submission
     setFormData(initialFormData);
   };
@@ -33,22 +40,28 @@ const PlayerForm = ({ onCreatePlayer }) => {
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="name">Name:</label>
-          <input type="text" name="name" value={formData.name} onChange={handleChange} required />
+          <input type="text" id="name" value={formData.name} onChange={handleChange} required />
         </div>
 
         <div className="form-group">
-          <label htmlFor="breed">Breed:</label>
-          <input type="text" name="breed" value={formData.breed} onChange={handleChange} required />
+          <label for="breed">Breed:</label>
+          <input type="text" id="breed" value={formData.breed} onChange={handleChange} required />
         </div>
 
         <div className="form-group">
           <label htmlFor="status">Status:</label>
-          <input type="text" name="status" value={formData.status} onChange={handleChange} required />
+          <input type="text" id="status" value={formData.status} onChange={handleChange} required />
         </div>
 
         <div className="form-group">
           <label htmlFor="teamId">TeamId:</label>
-          <input type="text" name="teamId" value={formData.teamId} onChange={handleChange} required />
+          
+          <select id="teamId" value={formData.teamId} onChange={handleChange} required>
+            <option value="">Select Team</option>
+            <option value="team1">Team 1</option>
+            <option value="team2">Team 2</option>
+            {/* Add more options as needed */}
+          </select>
         </div>
 
         {/* Add more form fields as needed */}
