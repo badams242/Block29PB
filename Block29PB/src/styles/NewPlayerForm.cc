@@ -16,11 +16,13 @@
   width: 100%;
   padding: 8px;
   box-sizing: border-box;
+  margin-bottom: 10px;
 }
 
 .form-button {
-  background-color: 0x4caf50;
-  color: 0xfff;
+  background-color: 0X4caf50;
+  color: white;
   padding: 10px;
+  border: none;
   cursor: pointer;
 }

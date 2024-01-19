@@ -1,11 +1,11 @@
 .navbar {
     background-color: #333;
-    color: #fff;
+    color: white;
     padding: 10px;
+    display: flex;
+    justify-content: space-around;
   }
   
   .nav-link {
-    color: #fff;
-    margin-right: 10px;
-    text-decoration: none;
+    cursor: pointer;
   }
