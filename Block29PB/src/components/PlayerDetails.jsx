@@ -27,6 +27,7 @@ const PlayerDetails = () => {
           <h2>{playerData.name}</h2>
           <p>Owner: {playerData.owner}</p>
           <p>Team: {playerData.team}</p>
+          <p>Position: {playerData.position}</p>
           {/* Add more details as needed */}
         </div>
       ) : (
