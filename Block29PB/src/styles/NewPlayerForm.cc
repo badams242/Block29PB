@@ -5,7 +5,7 @@
 
 .NewPlayerForm h2 {
   font-size: 24px;
-  color: #333;
+  color: 0X333;
 }
 
 .NewPlayerForm form {
@@ -23,8 +23,8 @@
 }
 
 .NewPlayerForm button {
-  background-color: #28a745;
-  color: #fff;
+  background-color: 0X28a745;
+  color: 0Xfff;
   border: none;
   padding: 12px;
   cursor: pointer;
