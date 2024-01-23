@@ -1,28 +1,31 @@
-.form-container {
+.NewPlayerForm {
   max-width: 400px;
-  margin: 0 auto;
+  margin: 20px auto;
 }
 
-.form-group {
-  margin-bottom: 15px;
+.NewPlayerForm h2 {
+  font-size: 24px;
+  color: #333;
 }
 
-.form-label {
-  display: block;
-  margin-bottom: 5px;
+.NewPlayerForm form {
+  display: flex;
+  flex-direction: column;
 }
 
-.form-input {
-  width: 100%;
+.NewPlayerForm label {
+  margin-bottom: 8px;
+}
+
+.NewPlayerForm input {
   padding: 8px;
-  box-sizing: border-box;
-  margin-bottom: 10px;
+  margin-bottom: 16px;
 }
 
-.form-button {
-  background-color: 0X4caf50;
-  color: white;
-  padding: 10px;
+.NewPlayerForm button {
+  background-color: #28a745;
+  color: #fff;
   border: none;
+  padding: 12px;
   cursor: pointer;
 }

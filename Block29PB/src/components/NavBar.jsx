@@ -1,22 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './NavBar.css';
-import { APIURL } from '../config';
 
-
-const NavBar = () => {
+const NavBar = ({ isLoggedIn }) => {
   return (
-    <div className="navbar">
-      <Link to="/" className="nav-link">
-        Home
-      </Link>
-      <Link to="/players" className="nav-link">
-        Players
-      </Link>
-      <Link to="/new-player" className="nav-link">
-        New Player
-      </Link>
-    </div>
+    <nav>
+      <ul>
+        <li>
+          <Link to="/players">Player List</Link>
+        </li>
+        {isLoggedIn && (
+          <li>
+            <Link to="/new-player">New Player</Link>
+          </li>
+        )}
+        {/* Add more navigation options as needed */}
+      </ul>
+    </nav>
   );
 };
 

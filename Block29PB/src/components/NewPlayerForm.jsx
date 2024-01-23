@@ -1,52 +1,49 @@
 import React, { useState } from 'react';
-import './NewPlayerForm.css';
-import { APIURL } from '../config';
 
-const renderNewPlayerForm = () => {
-  try {
-      newPlayerFormContainer.innerHTML = `
-          <form id="new-player-form">
-              <label for="name">Name</label>
-              <input type="text" id="name" name="name" />
-              <label for="breed">Breed</label>
-              <input type="text" id="breed" name="breed" />
-              <label for="status">Status</label>
-              <input type="text" id="status" name="status" />
-              <label for="number">Number</label>
-              <input type="number" id="number" name="number" />
-              <label for="team">Team</label>
-              <input type="text" id="team" name="team" />
-              <button type="submit">Add new player</button>
-          </form>
-      `;/// created container for html as weel adde button 
+const NewPlayerForm = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    position: '',
+    team: '',
+  });
 
-      const newPlayerForm = document.getElementById('new-player-form');
-      newPlayerForm.addEventListener('submit', async (event) => {
-          event.preventDefault();
-          const newPlayerObj = {
-              name: event.target.name.value,
-              breed: event.target.breed.value,
-              status: event.target.status.value,
-              number: event.target.number.value,
-              team: event.target.team.value
-          };
-          const addedPlayer = await addNewPlayer(newPlayerObj);
-          const updatedPlayers = await fetchAllPlayers();
-          renderAllPlayers(updatedPlayers);
-      });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
 
-  } catch (err) {
-      console.error('Uh oh, trouble rendering the new player form!', err);
-  }
-}
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // TODO: Add logic to handle form submission (e.g., API request to add a new player)
+    console.log('Form submitted with data:', formData);
+  };
 
-const init = async () => {
-  const players = await fetchAllPlayers();
-  renderAllPlayers(players);
-  /// render all players and render new player form
-  renderNewPlayerForm();
-}
-
-init();
+  return (
+    <div>
+      <h2>New Player Form</h2>
+      <form onSubmit={handleSubmit}>
+        <label>
+          Name:
+          <input type="text" name="name" value={formData.name} onChange={handleChange} />
+        </label>
+        <br />
+        <label>
+          Position:
+          <input type="text" name="position" value={formData.position} onChange={handleChange} />
+        </label>
+        <br />
+        <label>
+          Team:
+          <input type="text" name="team" value={formData.team} onChange={handleChange} />
+        </label>
+        <br />
+        <button type="submit">Add Player</button>
+      </form>
+    </div>
+  );
+};
 
 export default NewPlayerForm;

@@ -1,47 +1,49 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import './PlayersList.css';
-import { APIURL } from '../config';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
-const renderAllPlayers = (playerList) => {
-  try {
-      let playerContainerHTML = ''; //create loop through playerList and create HTML for each player
-      playerList.forEach((player) => {
-          playerContainerHTML += `
-              <div class="player-card">
-                  <h2>${player.name}</h2>
-                  <p>${player.Breed}</p>
-                  <p>${player.status}</p> 
-                  <p>${player.number}</p>
-                  <p>${player.team}</p>
-                  <button class="see-details" id="see-details-${player.id}">See details</button>
-                  <button class="remove-from-roster" id="remove-from-roster-${player.id}">Remove from roster</button>
-              </div>
-          `;
-      });
-      playerContainer.innerHTML = playerContainerHTML;// created container for HTML
+const PlayerList = () => {
+  const [playersData, setPlayersData] = useState([]);
+  const navigate = useNavigate();
 
-      const seeDetailsButtons = document.querySelectorAll('.see-details'); /// Created listeners to buttons 
-      seeDetailsButtons.forEach((button) => {
-          button.addEventListener('click', async (event) => {
-              const playerId = event.target.id.split('-')[2];
-              const player = await fetchSinglePlayer(playerId);
-              console.log(player);
-          });
-      });
+  useEffect(() => {
+    // Fetch all available players from the provided API
+    const fetchPlayersData = async () => {
+      try {
+        const response = await fetch('https://fsa-puppy-bowl.herokuapp.com/api/2309-ftb-et-web-pt/players');
+        const data = await response.json();
+        setPlayersData(data);
+      } catch (error) {
+        console.error('Error fetching players data:', error);
+      }
+    };
 
-      const removeFromRosterButtons = document.querySelectorAll('.remove-from-roster');
-      removeFromRosterButtons.forEach((button) => {
-          button.addEventListener('click', async (event) => {
-              const playerId = event.target.id.split('-')[3];
-              const removedPlayer = await removePlayer(playerId);
-              console.log(removedPlayer);
-          });
-      });
+    fetchPlayersData();
+  }, []);
 
-  } catch (err) {
-      console.error('Uh oh, trouble rendering players!', err);
-  }
+  const handleSeeDetails = (playerId) => {
+    // Navigate to the details page for the selected player
+    navigate(`/players/${playerId}/details`);
+  };
+
+  return (
+    <div>
+      <h2>All Players</h2>
+      {playersData.length > 0 ? (
+        <ul>
+          {playersData.map((player) => (
+            <li key={player.id}>
+              <Link to={`/players/${player.id}`}>
+                {player.name}
+              </Link>
+              <button onClick={() => handleSeeDetails(player.id)}>See Details</button>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>Loading players data...</p>
+      )}
+    </div>
+  );
 };
 
-export default PlayersList;
+export default PlayerList;
